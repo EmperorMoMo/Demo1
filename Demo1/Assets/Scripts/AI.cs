@@ -39,24 +39,26 @@ public class AI : MonoBehaviour
                 //站立状态，判断和玩家的距离如果在1到3米内，变为跑步
                 if(distance>1&&distance<=3)
                 {
-                    CurrentState = EnemyState.run;
+                    CurrentState = EnemyState.idle;
 
                     ani.SetBool("IsWalking", true);
                     agent.isStopped = false;
-
                     agent.SetDestination(player.position);
+
                 }
                 //播放行走动画
                 //导航开始
+                
                 break;
             case EnemyState.run:
                 //追踪状态，判断如果离玩家大于3米，则变回到站立
                 if(distance >3)
                 {
-                    CurrentState = EnemyState.idle;
+                    CurrentState = EnemyState.run;
 
                     ani.SetBool("IsWalking", false);
-                    agent.isStopped = true;
+                agent.isStopped = true;
+                    
                 }
                 //播放站立动画
                 //导航停止
