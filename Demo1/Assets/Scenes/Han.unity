@@ -242,7 +242,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 537765bc0a532c34bb1531c386b85b82, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -278,8 +278,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180613549}
   m_LocalRotation: {x: -0.24110368, y: -0, z: -0, w: 0.9704994}
-  m_LocalPosition: {x: 0, y: 1.46, z: 6.35}
-  m_LocalScale: {x: 7.306458, y: 1.3732, z: 8.924112}
+  m_LocalPosition: {x: 0, y: -0.25, z: 7.26}
+  m_LocalScale: {x: 7.306458, y: 5.2192235, z: 8.924112}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -391,6 +391,23 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cace4721e52ce704e9a5ef2bbae4dace, type: 2}
+    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed by
+        Humanoid clips.\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tTransform 'Hair_Root'\n\tTransform
+        'HeadEnd_M'\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tTransform 'Hair_Root'\n\tTransform
+        'HeadEnd_M'\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tand more ...\n\tFrom
+        animation clip 'IdleF'\n\tFrom animation clip 'Walk'"
+      objectReference: {fileID: 0}
     - target: {fileID: 400248, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -434,23 +451,6 @@ PrefabInstance:
     - target: {fileID: 400248, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: cace4721e52ce704e9a5ef2bbae4dace, type: 2}
-    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
-      propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed by
-        Humanoid clips.\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tTransform 'Hair_Root'\n\tTransform
-        'HeadEnd_M'\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tTransform 'Hair_Root'\n\tTransform
-        'HeadEnd_M'\n\tTransform 'Jaw_M'\n\tTransform 'Eye1_R'\n\tand more ...\n\tFrom
-        animation clip 'IdleF'\n\tFrom animation clip 'Walk'"
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: c07e4614807f42542ad7eb862ff5a01c, type: 3}
       propertyPath: m_AABB.m_Center.x
