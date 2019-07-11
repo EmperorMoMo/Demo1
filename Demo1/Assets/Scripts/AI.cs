@@ -15,7 +15,8 @@ public class AI : MonoBehaviour
     //状态
     public EnemyState CurrentState = EnemyState.idle;
     //动画控制器
-    private Animation ani;
+    //private Animation ani;
+    private Animator ani;
     //玩家
     private Transform player;
     //导航代理
@@ -23,7 +24,7 @@ public class AI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ani = GetComponent<Animation>();
+        ani = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
     }
@@ -39,22 +40,23 @@ public class AI : MonoBehaviour
                 if(distance>1&&distance<=3)
                 {
                     CurrentState = EnemyState.run;
+
+                    ani.SetBool("IsWalking", true);
                 }
                 //播放站立动画
-                ani.Play("IdleF");
                 //导航停止
-                agent.isStopped = true;
+                agent.isStopped = false;
                 break;
             case EnemyState.run:
                 //追踪状态，判断如果离玩家大于3米，则变回到站立
                 if(distance >3)
                 {
                     CurrentState = EnemyState.idle;
+                    ani.SetBool("IsWalking", false);
                 }
                 //播放跑步动画
-                ani.Play("Run");
                 //导航开始
-                agent.isStopped = false;
+                agent.isStopped = true;
                 agent.SetDestination(player.position);//导航目标
                 break;
             case EnemyState.attack:
