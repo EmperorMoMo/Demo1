@@ -112,6 +112,55 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 40248063df515ee43b82c360b010ed9d, type: 2}
+--- !u!1 &76732983 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1136923053871828, guid: 683cad39f1494e24f90cf82efd3a39e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 927669856}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &76732984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76732983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1207b7bd1df534bb11378f6a397b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  keyUp: w
+  keyDown: s
+  keyLeft: a
+  keyRight: d
+  Dup: 0
+  Dright: 0
+  Dmag: 0
+  Dvec: {x: 0, y: 0, z: 0}
+  inputEnabled: 1
+--- !u!114 &76732985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76732983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92e4d9878bd625d41878429abea4b834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 76732983}
+  pi: {fileID: 0}
+  walkSpeed: 2
+  anim: {fileID: 76732986}
+--- !u!95 &76732986 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95567400331666554, guid: 683cad39f1494e24f90cf82efd3a39e4,
+    type: 3}
+  m_PrefabInstance: {fileID: 927669856}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &279576311 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1571125196395142, guid: deeacd43ab4a5df46a6b2e841c433b15,
@@ -403,6 +452,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95567400331666554, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cace4721e52ce704e9a5ef2bbae4dace, type: 2}
+    - target: {fileID: 137662959455926820, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 137969390758464478, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 137555656495476254, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 137856922454077180, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 137713898279701410, guid: 683cad39f1494e24f90cf82efd3a39e4,
+        type: 3}
+      propertyPath: m_BlendShapeWeights.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 683cad39f1494e24f90cf82efd3a39e4, type: 3}
 --- !u!1 &1397873160
@@ -484,6 +563,10 @@ PrefabInstance:
     - target: {fileID: 1571125196395142, guid: deeacd43ab4a5df46a6b2e841c433b15, type: 3}
       propertyPath: m_Name
       value: Kazuko
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571125196395142, guid: deeacd43ab4a5df46a6b2e841c433b15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4136110905102452, guid: deeacd43ab4a5df46a6b2e841c433b15, type: 3}
       propertyPath: m_LocalPosition.x

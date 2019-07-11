@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 144415952}
   pi: {fileID: 0}
-  walkSpeed: 1.25
+  walkSpeed: 1.4
   anim: {fileID: 144415953}
 --- !u!54 &928179326
 Rigidbody:
