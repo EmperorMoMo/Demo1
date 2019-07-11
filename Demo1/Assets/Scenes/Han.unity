@@ -657,7 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 144415952}
   pi: {fileID: 0}
-  walkSpeed: 1.25
+  walkSpeed: 1.4
   anim: {fileID: 144415953}
 --- !u!54 &928179326
 Rigidbody:
@@ -781,6 +781,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323055225404293657, guid: 2aeb0d971bbffc447bb59a6928ace28a,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323055225404293657, guid: 2aeb0d971bbffc447bb59a6928ace28a,
+        type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2323055225404293657, guid: 2aeb0d971bbffc447bb59a6928ace28a,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2aeb0d971bbffc447bb59a6928ace28a, type: 3}
