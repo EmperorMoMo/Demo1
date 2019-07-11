@@ -46,7 +46,12 @@ public class PlayerInput : MonoBehaviour
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, 0.1f);//ref的意思是传参不传值
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, 0.1f);
 
+        //控制人物转向
         Dmag = Mathf.Sqrt((Dup * Dup) + (Dright * Dright));//勾股定理
+        //if (Dmag > 1)
+        //{
+        //    Dmag = 1;
+        //}
         Dvec = Dright * transform.right + Dup * transform.forward;      //这段代码需要好好理解！！精华所在
     }
 }
