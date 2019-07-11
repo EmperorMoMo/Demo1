@@ -42,22 +42,25 @@ public class AI : MonoBehaviour
                     CurrentState = EnemyState.run;
 
                     ani.SetBool("IsWalking", true);
+                    agent.isStopped = false;
+
+                    agent.SetDestination(player.position);
                 }
-                //播放站立动画
-                //导航停止
-                agent.isStopped = false;
+                //播放行走动画
+                //导航开始
                 break;
             case EnemyState.run:
                 //追踪状态，判断如果离玩家大于3米，则变回到站立
                 if(distance >3)
                 {
                     CurrentState = EnemyState.idle;
+
                     ani.SetBool("IsWalking", false);
+                    agent.isStopped = true;
                 }
-                //播放跑步动画
-                //导航开始
-                agent.isStopped = true;
-                agent.SetDestination(player.position);//导航目标
+                //播放站立动画
+                //导航停止
+                //导航目标
                 break;
             case EnemyState.attack:
                 break;
