@@ -12,6 +12,8 @@ public class PlayerInput : MonoBehaviour
 
     public float Dup;   //Dup(signal)控制信号
     public float Dright;    //Dright(signal)控制信号
+    public float Dmag;  //中间参数
+    public Vector3 Dvec;    //坐标变量，赋予给forward向量
 
     public bool inputEnabled = true;    //控制是否行走的开关（软开关）
 
@@ -43,5 +45,8 @@ public class PlayerInput : MonoBehaviour
         //SmoothDamp方法可以让控制信号能平滑的从0到1或者-1而不是直接从0到1或-1
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, 0.1f);//ref的意思是传参不传值
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, 0.1f);
+
+        Dmag = Mathf.Sqrt((Dup * Dup) + (Dright * Dright));//勾股定理
+        Dvec = Dright * transform.right + Dup * transform.forward;      //这段代码需要好好理解！！精华所在
     }
 }
