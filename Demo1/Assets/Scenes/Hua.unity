@@ -118,6 +118,36 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2065330945}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &279576312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279576311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60fb65dbf399bdb4bb4f1fa3c53d0146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentState: 0
+--- !u!111 &279576313
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279576311}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: df4cbbfb0f4a03f4c87d28412920e9e9, type: 3}
+  m_Animations:
+  - {fileID: 7400000, guid: df4cbbfb0f4a03f4c87d28412920e9e9, type: 3}
+  - {fileID: 7400000, guid: d9a2874e1c6daa848872fb0bd27dc881, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!195 &279576316
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -324,6 +354,10 @@ PrefabInstance:
     - target: {fileID: 1136923053871828, guid: 683cad39f1494e24f90cf82efd3a39e4, type: 3}
       propertyPath: m_Name
       value: Kazuko_bikini
+      objectReference: {fileID: 0}
+    - target: {fileID: 1136923053871828, guid: 683cad39f1494e24f90cf82efd3a39e4, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4531149255433486, guid: 683cad39f1494e24f90cf82efd3a39e4, type: 3}
       propertyPath: m_LocalPosition.x
