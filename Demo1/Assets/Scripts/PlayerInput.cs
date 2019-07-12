@@ -5,16 +5,31 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     //Variable  变数变量区
+    [Header("===== Key settings =====")]//标识这个区块代码是什么
     public string keyUp = "w";
     public string keyDown = "s";
     public string keyLeft = "a";
     public string keyRight = "d";
 
+    public string keyA;
+    public string keyB;
+    public string keyC;
+    public string keyD;
+
+    [Header("===== Output signals =====")]
     public float Dup;   //Dup(signal)控制信号
     public float Dright;    //Dright(signal)控制信号
     public float Dmag;  //中间参数
     public Vector3 Dvec;    //坐标变量，赋予给forward向量
 
+    //1.pressing signal 按压信号
+    public bool run;    //控制跑步的信号，按压型信号
+    //2.trigger once signal 一次性触发信号
+    public bool jump;       //控制跳跃的信号，按一次触发一次的
+    public bool lastJump;
+    //3.double trigger  多次触发信号
+
+    [Header("===== Others =====")]
     public bool inputEnabled = true;    //控制是否行走的开关（软开关）
 
     private float targetDup;        //目标值Dup
@@ -46,12 +61,41 @@ public class PlayerInput : MonoBehaviour
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, 0.1f);//ref的意思是传参不传值
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, 0.1f);
 
+        //这段代码修复斜着跑的时候速度会变快的BUG
+        Vector2 tempDAxis = SquareToCircle(new Vector2(Dright, Dup));
+        float Dright2 = tempDAxis.x;
+        float Dup2 = tempDAxis.y;
+
         //控制人物转向
-        Dmag = Mathf.Sqrt((Dup * Dup) + (Dright * Dright));//勾股定理
-        //if (Dmag > 1)
-        //{
-        //    Dmag = 1;
-        //}
-        Dvec = Dright * transform.right + Dup * transform.forward;      //这段代码需要好好理解！！精华所在
+        Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));//勾股定理
+        Dvec = Dright2 * transform.right + Dup2 * transform.forward;      //这段代码需要好好理解！！精华所在
+
+        //人物跑步
+        run = Input.GetKey(keyA);
+
+        //人物跳跃
+        bool newJump = Input.GetKey(keyB);
+        //jump = tempJump;
+        if (newJump != lastJump && newJump==true )
+        {
+            jump = true;
+        }
+        else
+        {
+            jump = false;
+        }
+
+        lastJump = newJump;
+    }
+
+    //修复斜着跑速度变快的BUG
+    private Vector2 SquareToCircle(Vector2 input)
+    {
+        Vector2 output = Vector2.zero;
+
+        output.x = input.x * Mathf.Sqrt(1 - (input.y * input.y) / 2.0f);
+        output.y = input.y * Mathf.Sqrt(1 - (input.x * input.x) / 2.0f);
+
+        return output;
     }
 }
