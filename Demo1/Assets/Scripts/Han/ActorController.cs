@@ -76,7 +76,7 @@ public class ActorController : MonoBehaviour
     }
 
     ///
-    ///
+    ///下面放Message讯息
     ///
     public void OnJumpEnter()
     {
@@ -86,11 +86,34 @@ public class ActorController : MonoBehaviour
         thrustVec = new Vector3(0, jumpVelocity, 0);
     }
 
-    public void OnJumpExit()
+    //public void OnJumpExit()
+    //{
+    //    //print("On Jump Exit");
+    //    pi.inputEnabled = true;
+    //    lockPlanar = false;
+    //}
+
+    public void IsGround()
     {
-        //print("On Jump Exit");
+        //print("Is On Ground!!!!!!!!!!");
+        anim.SetBool("isGround",true);
+    }
+
+    public void IsNotGround()
+    {
+        //print("Is Not On Ground!!!!!!!!!");
+        anim.SetBool("isGround", false);
+    }
+
+    public void OnGroundEnter()
+    {
         pi.inputEnabled = true;
         lockPlanar = false;
     }
 
+    public void OnFallEnter()
+    {
+        pi.inputEnabled = false;
+        lockPlanar = true;
+    }
 }
