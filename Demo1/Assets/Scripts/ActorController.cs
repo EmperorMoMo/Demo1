@@ -8,12 +8,15 @@ public class ActorController : MonoBehaviour
     public PlayerInput pi;
     public float walkSpeed = 2.0f;//控制行走的速度，让Rigidbody和动画播放的移动速度契合，不滑步
     public float runMultiplier = 2.0f;//控制跑步的速度
+    public float jumpVelocity = 5.0f;//跳的高度
 
     [SerializeField]//可以把私有变量显示到unity
     private Animator anim;
-
     private Rigidbody rigid;
-    private Vector3 movingVec;//用于存储跟玩家相关的移动控制信息
+    private Vector3 planarVec;//用于存储跟玩家相关的移动控制信息
+    private Vector3 thrustVec;//冲量向量
+
+    private bool lockPlanar = false;//是否锁死平面移动速度
     
     // Start is called before the first frame update
     void Awake()//Awake比Start好一些
@@ -52,23 +55,42 @@ public class ActorController : MonoBehaviour
             model.transform.forward= Vector3.Slerp(model.transform.forward, pi.Dvec, 0.25f);
         }
 
-        //玩家操作的变量*当下模型的正面，这样就可以得到玩家的移动意图
-        movingVec = pi.Dmag * model.transform.forward * walkSpeed *
-                    ((pi.run) ? runMultiplier : 1.0f); //walkspeed后面乘的数是跑步速度
+        if (lockPlanar==false)//当lockPlanar为false时，可以自由移动
+        {
+            //玩家操作的变量*当下模型的正面，这样就可以得到玩家的移动意图
+            planarVec = pi.Dmag * model.transform.forward * walkSpeed *
+                        ((pi.run) ? runMultiplier : 1.0f); //walkspeed后面乘的数是跑步速度
+        }
+
+        
     }
 
     //rigid的调用最好放在FixedUpdate里面,FixedUpdate中两帧间隔是Time.fixedDeltaTime(1/50)
     void FixedUpdate()
     {
-        //rigid.position += movingVec * Time.fixedDeltaTime;//直接改位置，需要速度*时间
-        //rigid.velocity = movingVec;//直接指派速度，就不需要乘时间了,但这样的话从斜坡下来的时候会飘在空中然后慢慢下落，
+        //rigid.position += planarVec * Time.fixedDeltaTime;//直接改位置，需要速度*时间
+        //rigid.velocity = planarVec;//直接指派速度，就不需要乘时间了,但这样的话从斜坡下来的时候会飘在空中然后慢慢下落，
         //可以按下面写法
-        rigid.velocity = new Vector3(movingVec.x, rigid.velocity.y, movingVec.z);
+        rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrustVec;
+        thrustVec=Vector3.zero;
     }
 
-    public void OnJump()
+    ///
+    ///
+    ///
+    public void OnJumpEnter()
     {
-        print("On Jump");
+        //print("On Jump Enter");
+        pi.inputEnabled = false;
+        lockPlanar = true;
+        thrustVec = new Vector3(0, jumpVelocity, 0);
+    }
+
+    public void OnJumpExit()
+    {
+        //print("On Jump Exit");
+        pi.inputEnabled = true;
+        lockPlanar = false;
     }
 
 }
