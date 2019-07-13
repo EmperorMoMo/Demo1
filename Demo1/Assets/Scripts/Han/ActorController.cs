@@ -39,6 +39,12 @@ public class ActorController : MonoBehaviour
         //上面两句代码可以整合为一句
         anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), ((pi.run) ? 2.0f : 1.0f), 0.25f));
 
+        //翻滚动画播放
+        if (rigid.velocity.magnitude > 5.0f)
+        {
+            anim.SetTrigger("roll");
+        }
+
         //跳跃动作播放
         if (pi.jump)
         {
