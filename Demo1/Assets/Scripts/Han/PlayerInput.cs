@@ -56,7 +56,7 @@ public class PlayerInput : MonoBehaviour
 
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
-        print(Jright);
+        //print(Jright);
 
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         //三元表达式()?():()     通过Dup值的变化(1,0,-1)来控制前后行走
