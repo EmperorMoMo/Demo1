@@ -16,11 +16,18 @@ public class PlayerInput : MonoBehaviour
     public string keyC;
     public string keyD;
 
+    public string keyJRight;
+    public string keyJLeft;
+    public string keyJUp;
+    public string keyJDown;
+
     [Header("===== Output signals =====")]
     public float Dup;   //Dup(signal)控制信号
     public float Dright;    //Dright(signal)控制信号
     public float Dmag;  //中间参数
     public Vector3 Dvec;    //坐标变量，赋予给forward向量
+    public float Jup;
+    public float Jright;
 
     //1.pressing signal 按压信号
     public bool run;    //控制跑步的信号，按压型信号
@@ -46,6 +53,11 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+        print(Jright);
+
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         //三元表达式()?():()     通过Dup值的变化(1,0,-1)来控制前后行走
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);

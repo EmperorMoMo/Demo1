@@ -6,9 +6,10 @@ public class ActorController : MonoBehaviour
 {
     public GameObject model;
     public PlayerInput pi;
-    public float walkSpeed = 2.0f;//控制行走的速度，让Rigidbody和动画播放的移动速度契合，不滑步
+    public float walkSpeed = 2.4f;//控制行走的速度，让Rigidbody和动画播放的移动速度契合，不滑步
     public float runMultiplier = 2.0f;//控制跑步的速度
     public float jumpVelocity = 5.0f;//跳的高度
+    public float rollVelocity = 1.0f;//翻滚距离
 
     [SerializeField]//可以把私有变量显示到unity
     private Animator anim;
@@ -38,6 +39,12 @@ public class ActorController : MonoBehaviour
         //anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), targetMulti, 0.25f));
         //上面两句代码可以整合为一句
         anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), ((pi.run) ? 2.0f : 1.0f), 0.25f));
+
+        //翻滚动画播放
+        if (rigid.velocity.magnitude > 0f)
+        {
+            anim.SetTrigger("roll");
+        }
 
         //跳跃动作播放
         if (pi.jump)
@@ -115,5 +122,24 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnabled = false;
         lockPlanar = true;
+    }
+
+    public void OnRollEnter()
+    {
+        pi.inputEnabled = false;
+        lockPlanar = true;
+        thrustVec = new Vector3(0, rollVelocity, 0);
+    }
+
+    public void OnJabEnter()
+    {
+        pi.inputEnabled = false;
+        lockPlanar = true;
+    }
+
+    public void OnJabUpdate()
+    {
+        thrustVec = model.transform.forward * anim.GetFloat("jabVelocity");
+
     }
 }
