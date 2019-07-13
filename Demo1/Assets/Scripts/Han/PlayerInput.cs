@@ -54,6 +54,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
 
+        //Jup控制相机上下移动，值为（1，0，-1）。Jright控制相机左右值也为（1,0,-1)
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
         //print(Jright);
@@ -63,13 +64,14 @@ public class PlayerInput : MonoBehaviour
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
         //通过Dright值的变化(1,0,-1)来控制左右行走,两个控制信号形成一个二维坐标轴
 
+        //玩家操作的开关，关了则无法操作
         if (inputEnabled == false)
         {
             targetDup = 0;
             targetDright = 0;
         }
 
-        //SmoothDamp方法可以让控制信号能平滑的从0到1或者-1而不是直接从0到1或-1
+        //SmoothDamp方法可以让控制信号能平滑的从0到1或者-1而不是直接从0到1或-1（应该也可以用Vector3.Lerp实现）
         Dup = Mathf.SmoothDamp(Dup, targetDup, ref velocityDup, 0.1f);//ref的意思是传参不传值
         Dright = Mathf.SmoothDamp(Dright, targetDright, ref velocityDright, 0.1f);
 
