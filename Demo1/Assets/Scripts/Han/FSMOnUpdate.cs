@@ -13,6 +13,7 @@ public class FSMOnUpdate : StateMachineBehaviour
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    // 在OnStateEnter和OnStateExit回调之间的每个更新帧上调用OnStateUpdate
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         foreach (var msg in onUpdateMessage)
