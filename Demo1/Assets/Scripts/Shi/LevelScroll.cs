@@ -53,17 +53,17 @@ public class LevelScroll : MonoBehaviour , IBeginDragHandler, IEndDragHandler {
     }
     public void TurnTopage2(bool isOn) {
         if (isOn) {
-            targetHorizontalPosition = pageArray[1]; //跳转到第1页
+            targetHorizontalPosition = pageArray[1]; //跳转到第2页
         }
     }
     public void TurnTopage3(bool isOn) {
         if (isOn) {
-            targetHorizontalPosition = pageArray[2]; //跳转到第1页
+            targetHorizontalPosition = pageArray[2]; //跳转到第3页
         }
     }
     public void TurnTopage4(bool isOn) {
         if (isOn) {
-            targetHorizontalPosition = pageArray[3]; //跳转到第1页
+            targetHorizontalPosition = pageArray[3]; //跳转到第4页
         }
     }
 }
