@@ -708,7 +708,7 @@ MonoBehaviour:
   keyRight: d
   keyA: left shift
   keyB: space
-  keyC: 
+  keyC: k
   keyD: 
   keyJRight: right
   keyJLeft: left
@@ -723,6 +723,8 @@ MonoBehaviour:
   run: 0
   jump: 0
   lastJump: 0
+  attack: 0
+  lastAttack: 0
   inputEnabled: 1
 --- !u!136 &928179324
 CapsuleCollider:

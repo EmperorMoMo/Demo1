@@ -16,6 +16,7 @@ public class ActorController : MonoBehaviour
     private Rigidbody rigid;
     private Vector3 planarVec;//用于存储跟玩家相关的移动控制信息
     private Vector3 thrustVec;//冲量向量
+    private bool canAttack;//限定是否可以进行attack，尝试解决跳跃过程中能攻击的问题
 
     private bool lockPlanar = false;//是否锁死平面移动速度
     
@@ -41,15 +42,22 @@ public class ActorController : MonoBehaviour
         anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), ((pi.run) ? 2.0f : 1.0f), 0.25f));
 
         //翻滚动画播放
-        if (rigid.velocity.magnitude > 0f)
+        if (pi.jump && rigid.velocity.magnitude > 0f)
         {
             anim.SetTrigger("roll");
         }
 
-        //跳跃动作播放
+        //跳跃动画播放
         if (pi.jump)
         {
             anim.SetTrigger("jump");
+            canAttack = false;//跳跃的时候，canAttack为false的无法进行攻击
+        }
+
+        //攻击动画播放        CheckState目前可有可无？？？
+        if (pi.attack && CheckState("ground") && canAttack)//添加限定条件，判断是否在ground状态机，并且判断canAttack是否为true
+        {
+            anim.SetTrigger("attack");
         }
 
         //让人物不再在玩家没输入的时候回到正面
@@ -69,7 +77,7 @@ public class ActorController : MonoBehaviour
                         ((pi.run) ? runMultiplier : 1.0f); //walkspeed后面乘的数是跑步速度
         }
 
-        
+        //print(CheckState("idle", "attack"));//检验CheckState是否成功
     }
 
     //rigid的调用最好放在FixedUpdate里面,FixedUpdate中两帧间隔是Time.fixedDeltaTime(1/50)
@@ -80,6 +88,17 @@ public class ActorController : MonoBehaviour
         //可以按下面写法
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrustVec;
         thrustVec=Vector3.zero;
+    }
+
+    //检查状态机是在哪个层级（stateName为层级里面的状态机，layerName判断是否在Base Layer层级）
+    private bool CheckState(string stateName,string layerName = "Base Layer")
+    {
+        int layerIndex = anim.GetLayerIndex(layerName);//获取状态机层级的索引
+        bool result = anim.GetCurrentAnimatorStateInfo(layerIndex).IsName(stateName);//获取层级索引里面状态机的名字
+        return result;
+
+        //上面三句可以合并为一句(不过会看不懂)
+        //return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
     }
 
     ///
@@ -116,6 +135,7 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnabled = true;
         lockPlanar = false;
+        canAttack = true;//落地的时候canAttack改为true
     }
 
     public void OnFallEnter()
@@ -140,6 +160,24 @@ public class ActorController : MonoBehaviour
     public void OnJabUpdate()
     {
         thrustVec = model.transform.forward * anim.GetFloat("jabVelocity");
+    }
 
+    public void OnAttack1hAEnter()
+    {
+        pi.inputEnabled = false;
+        //lockPlanar = true;
+        anim.SetLayerWeight(anim.GetLayerIndex("attack"), 1.0f);//改attack层级的权重
+    }
+
+    public void OnAttack1hAUpdate()
+    {
+        thrustVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");
+    }
+
+    public void OnAttackIdle()
+    {
+        pi.inputEnabled = true;
+        //lockPlanar = false;
+        anim.SetLayerWeight(anim.GetLayerIndex("attack"), 0f);//改attack层级的权重
     }
 }

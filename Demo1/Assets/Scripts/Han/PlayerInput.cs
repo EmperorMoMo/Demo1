@@ -34,6 +34,9 @@ public class PlayerInput : MonoBehaviour
     //2.trigger once signal 一次性触发信号
     public bool jump;       //控制跳跃的信号，按一次触发一次的
     public bool lastJump;
+    public bool attack;
+    public bool lastAttack;
+
     //3.double trigger  多次触发信号
 
     [Header("===== Others =====")]
@@ -98,8 +101,19 @@ public class PlayerInput : MonoBehaviour
         {
             jump = false;
         }
-
         lastJump = newJump;
+
+        //人物攻击
+        bool newAttack = Input.GetKey(keyC);
+        if (newAttack != lastAttack && newAttack == true)
+        {
+            attack = true;
+        }
+        else
+        {
+            attack = false;
+        }
+        lastAttack = newAttack;
     }
 
     //修复斜着跑速度变快的BUG
