@@ -23,7 +23,7 @@ public class ActorController : MonoBehaviour
     // Start is called before the first frame update
     void Awake()//Awake比Start好一些
     {
-        //anim = GetComponent<Animator>();
+        anim = model.GetComponent<Animator>();
         pi = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody>();
     }

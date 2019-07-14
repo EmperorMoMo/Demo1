@@ -664,12 +664,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1087889327}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &690869791 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9500000, guid: 1ca7a7a6afda43546bd0e1bba3aec6bd,
-    type: 3}
-  m_PrefabInstance: {fileID: 1087889327}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &928179322
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +752,7 @@ MonoBehaviour:
   runMultiplier: 2.7
   jumpVelocity: 4
   rollVelocity: 3
-  anim: {fileID: 690869791}
+  anim: {fileID: 0}
 --- !u!54 &928179326
 Rigidbody:
   m_ObjectHideFlags: 0
