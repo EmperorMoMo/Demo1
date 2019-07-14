@@ -37,7 +37,7 @@ public class CameraController : MonoBehaviour
         //控制相机上下
         //cameraHandle.transform.Rotate(Vector3.right, pi.Jup * -verticalSpeed * Time.deltaTime);
         //tempEulerx = cameraHandle.transform.eulerAngles.x;
-        tempEulerx -= pi.Jup * verticalSpeed * Time.deltaTime;//上下旋转的速度
+        tempEulerx -= pi.Jup * verticalSpeed * Time.fixedDeltaTime;//上下旋转的速度
         tempEulerx = Mathf.Clamp(tempEulerx, -20, 30);//Mathf.Clamp方法可以限制最小，最大值
         cameraHandle.transform.localEulerAngles =
             new Vector3(tempEulerx, 0, 0);
