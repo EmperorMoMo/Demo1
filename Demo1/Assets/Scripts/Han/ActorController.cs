@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ActorController : MonoBehaviour
 {
@@ -11,21 +12,26 @@ public class ActorController : MonoBehaviour
     public float jumpVelocity = 5.0f;//跳的高度
     public float rollVelocity = 1.0f;//翻滚距离
 
-    [SerializeField]//可以把私有变量显示到unity
+    [Space(10)]
+    [Header("===== Friction Settings =====")]
+    //控制摩擦力
+    public PhysicMaterial frictionOne;
+    public PhysicMaterial frictionZero;
+
     private Animator anim;
     private Rigidbody rigid;
     private Vector3 planarVec;//用于存储跟玩家相关的移动控制信息
     private Vector3 thrustVec;//冲量向量
     private bool canAttack;//限定是否可以进行attack，尝试解决跳跃过程中能攻击的问题
-
     private bool lockPlanar = false;//是否锁死平面移动速度
+    private CapsuleCollider col;//用于获取CapsuleCollider组件
     
-    // Start is called before the first frame update
     void Awake()//Awake比Start好一些
     {
         anim = model.GetComponent<Animator>();
         pi = GetComponent<PlayerInput>();
         rigid = GetComponent<Rigidbody>();
+        col = GetComponent<CapsuleCollider>();
     }
 
     //Update中两帧间隔是Time.deltaTime(1/60)
@@ -136,6 +142,15 @@ public class ActorController : MonoBehaviour
         pi.inputEnabled = true;
         lockPlanar = false;
         canAttack = true;//落地的时候canAttack改为true
+        //将PlayerHandle的CapsuleCollider组件中Material(摩擦力材质)切换为frictionOne（自己制作的）,在地上的时候静动摩擦力都为1（最大）
+        col.material = frictionOne;
+    }
+
+    public void OnGroundExit()
+    {
+        //将PlayerHandle的CapsuleCollider组件中Material(摩擦力材质)切换为frictionZero（自己制作的），
+        //在跳起来的时候设置静动摩擦力为0，解决黏在墙上的bug
+        col.material = frictionZero;
     }
 
     public void OnFallEnter()

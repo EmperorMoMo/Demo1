@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Han.unity
     guid: 0bc56d15c8be4974aad4327590d49112
+  - enabled: 1
+    path: Assets/Scenes/Shi/03-gamemenu.unity
+    guid: fddae4437becccd42b7cb8d7f0b239fe
   m_configObjects: {}

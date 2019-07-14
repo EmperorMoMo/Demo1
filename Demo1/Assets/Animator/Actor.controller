@@ -218,6 +218,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onUpdateMessage:
   - OnAttack1hAUpdate
+--- !u!114 &114739858435301810
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84b44d0ce57c9474e81d0c631346da6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onExitMessage:
+  - OnGroundExit
 --- !u!114 &114962275141901666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -743,6 +757,7 @@ AnimatorState:
   m_StateMachineBehaviours:
   - {fileID: 114052633955025842}
   - {fileID: 114027137714750264}
+  - {fileID: 114739858435301810}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

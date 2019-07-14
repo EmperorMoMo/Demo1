@@ -752,7 +752,8 @@ MonoBehaviour:
   runMultiplier: 2.7
   jumpVelocity: 4
   rollVelocity: 3
-  anim: {fileID: 0}
+  frictionOne: {fileID: 13400000, guid: 032fa8a760db5f34c9918bc906c0f53b, type: 2}
+  frictionZero: {fileID: 13400000, guid: 61b55cceca0868541994fb75aa54cdf2, type: 2}
 --- !u!54 &928179326
 Rigidbody:
   m_ObjectHideFlags: 0
