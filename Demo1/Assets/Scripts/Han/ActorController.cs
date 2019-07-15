@@ -25,6 +25,9 @@ public class ActorController : MonoBehaviour
     private bool canAttack;//限定是否可以进行attack，尝试解决跳跃过程中能攻击的问题
     private bool lockPlanar = false;//是否锁死平面移动速度
     private CapsuleCollider col;//用于获取CapsuleCollider组件
+    private float lerpTarget;//充当状态机层级的权重（1.0f)
+
+    private Vector3 deltaPos;//??
     
     void Awake()//Awake比Start好一些
     {
@@ -89,11 +92,15 @@ public class ActorController : MonoBehaviour
     //rigid的调用最好放在FixedUpdate里面,FixedUpdate中两帧间隔是Time.fixedDeltaTime(1/50)
     void FixedUpdate()
     {
+        rigid.position += deltaPos;//给刚体加上从OnUpdateRM（在讯息里）上累加的deltaPos（模型自身动画的位移量）
+
         //rigid.position += planarVec * Time.fixedDeltaTime;//直接改位置，需要速度*时间
         //rigid.velocity = planarVec;//直接指派速度，就不需要乘时间了,但这样的话从斜坡下来的时候会飘在空中然后慢慢下落，
         //可以按下面写法
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrustVec;
-        thrustVec=Vector3.zero;
+        thrustVec = Vector3.zero;
+
+        deltaPos = Vector3.zero;//播放完一次后清零
     }
 
     //检查状态机是在哪个层级（stateName为层级里面的状态机，layerName判断是否在Base Layer层级）
@@ -181,18 +188,56 @@ public class ActorController : MonoBehaviour
     {
         pi.inputEnabled = false;
         //lockPlanar = true;
-        anim.SetLayerWeight(anim.GetLayerIndex("attack"), 1.0f);//改attack层级的权重
+        lerpTarget = 1.0f;
     }
 
     public void OnAttack1hAUpdate()
     {
-        thrustVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");
+        thrustVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");//通过动画曲线(Curves)来给模型攻击时增加位移冲量
+
+        float currentWeight = anim.GetLayerWeight(anim.GetLayerIndex("attack"));//使用currentWeight来获取权重值
+        currentWeight = Mathf.Lerp(currentWeight, lerpTarget, 0.25f);//通过Mathf.lerp来使currentWeight值过渡平滑
+        anim.SetLayerWeight(anim.GetLayerIndex("attack"), currentWeight);//改attack层级的权重
+        //上面三句可以合并为一句
+        //anim.SetLayerWeight(anim.GetLayerIndex("attack"),
+        //    Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("attack")), lerpTarget, 0.1f));
     }
 
-    public void OnAttackIdle()
+    //public void OnAttack1hCEnter()
+    //{
+    //    pi.inputEnabled = false;
+    //}
+
+    //public void OnAttack1hCUpdate()
+    //{
+    //    thrustVec = model.transform.forward * anim.GetFloat("attack1hCVelocity");
+    //    anim.SetLayerWeight(anim.GetLayerIndex("attack"),
+    //        Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("attack")), lerpTarget, 0.25f));
+    //}
+
+    public void OnAttackIdleEnter()
     {
         pi.inputEnabled = true;
         //lockPlanar = false;
-        anim.SetLayerWeight(anim.GetLayerIndex("attack"), 0f);//改attack层级的权重
+        //anim.SetLayerWeight(anim.GetLayerIndex("attack"), 0f);//改attack层级的权重
+        lerpTarget = 0f;
+    }
+
+    public void OnAttackIdleUpdate()
+    {
+        //float currentWeight = anim.GetLayerWeight(anim.GetLayerIndex("attack"));//使用currentWeight来获取权重值
+        //currentWeight = Mathf.Lerp(currentWeight, lerpTarget, 0.25f);//通过Mathf.lerp来使currentWeight值过渡平滑
+        //anim.SetLayerWeight(anim.GetLayerIndex("attack"), currentWeight);//改attack层级的权重
+        anim.SetLayerWeight(anim.GetLayerIndex("attack"),
+            Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("attack")), lerpTarget, 0.25f));
+    }
+
+    public void OnUpdateRM(object _deltaPos)
+    {
+        //print(_deltaPos);
+        if (CheckState("attack1hC", "attack"))//检查是否在attack层级中的第三段攻击状态
+        {
+            deltaPos += (Vector3)_deltaPos;//将从RootMotionControl传来的_deltaPos累加到deltaPos
+        }
     }
 }
