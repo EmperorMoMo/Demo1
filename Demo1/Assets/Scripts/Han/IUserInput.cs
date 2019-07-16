@@ -17,6 +17,8 @@ public abstract class IUserInput : MonoBehaviour//abstract抽象类无法被实�
 
     //1.pressing signal 按压信号
     public bool run;    //控制跑步的信号，按压型信号
+
+    public bool defense;//控制举盾的信号
     //2.trigger once signal 一次性触发信号
     public bool jump;       //控制跳跃的信号，按一次触发一次的
     public bool lastJump;

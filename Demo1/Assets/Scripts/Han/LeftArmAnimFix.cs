@@ -27,10 +27,13 @@ public class LeftArmAnimFix : MonoBehaviour
 
     void OnAnimatorIK()
     {
-        Transform leftLowerArm = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);//取得模型上的左下臂的骨头
-        leftLowerArm.localEulerAngles += 0.75f * a;//设置手臂旋转角度
-        //通过SetBoneLocalRotation(要旋转的骨头，旋转角度的四元素)方法让手臂旋转        
-        anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArm.localEulerAngles));
+        if (anim.GetBool("defense")==false)
+        {
+            Transform leftLowerArm = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);//取得模型上的左下臂的骨头
+            leftLowerArm.localEulerAngles += 0.75f * a;//设置手臂旋转角度
+            //通过SetBoneLocalRotation(要旋转的骨头，旋转角度的四元素)方法让手臂旋转        
+            anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArm.localEulerAngles));
+        }
     }
 
 }

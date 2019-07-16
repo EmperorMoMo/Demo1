@@ -15,11 +15,12 @@ public class KeyboardInput : IUserInput
     public string keyB;
     public string keyC;
     public string keyD;
+    public string keyE;
 
-    public string keyJRight;
-    public string keyJLeft;
-    public string keyJUp;
-    public string keyJDown;
+    public string keyJRight;//控制相机移动
+    public string keyJLeft; //控制相机移动
+    public string keyJUp;   //控制相机移动
+    public string keyJDown; //控制相机移动
 
     /*这些都放到IUserInput里了*/
     //[Header("===== Output signals =====")]
@@ -58,6 +59,8 @@ public class KeyboardInput : IUserInput
     // Update is called once per frame
     void Update()
     {
+        //defense控制角色举盾
+        defense = Input.GetKey(keyD);
 
         //Jup控制相机上下移动，值为（1，0，-1）。Jright控制相机左右值也为（1,0,-1)
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);

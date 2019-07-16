@@ -52,6 +52,9 @@ public class ActorController : MonoBehaviour
         //上面两句代码可以整合为一句
         anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), ((pi.run) ? 2.0f : 1.0f), 0.25f));
 
+        //播放defense举盾动画
+        anim.SetBool("defense",pi.defense);
+
         //翻滚动画播放
         if (pi.jump && rigid.velocity.magnitude > 0f)
         {
