@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class ActorController : MonoBehaviour
 {
     public GameObject model;
-    public PlayerInput pi;
+    //public PlayerInput pi;
+    public IUserInput pi;//新增的抽象类，让PlayerInput继承IUserInput，这个抽象类可以方便以后拓展其他设备如手柄，AR眼镜等
     public float walkSpeed = 2.4f;//控制行走的速度，让Rigidbody和动画播放的移动速度契合，不滑步
     public float runMultiplier = 2.0f;//控制跑步的速度
     public float jumpVelocity = 5.0f;//跳的高度
@@ -32,7 +33,8 @@ public class ActorController : MonoBehaviour
     void Awake()//Awake比Start好一些
     {
         anim = model.GetComponent<Animator>();
-        pi = GetComponent<PlayerInput>();
+        //pi = GetComponent<PlayerInput>();
+        pi = GetComponent<IUserInput>();
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
     }
@@ -237,7 +239,9 @@ public class ActorController : MonoBehaviour
         //print(_deltaPos);
         if (CheckState("attack1hC", "attack"))//检查是否在attack层级中的第三段攻击状态
         {
-            deltaPos += (Vector3)_deltaPos;//将从RootMotionControl传来的_deltaPos累加到deltaPos
+            //deltaPos += (Vector3)_deltaPos;//将从RootMotionControl传来的_deltaPos累加到deltaPos，在下面改一下第三段攻击抖动问题
+            deltaPos += (deltaPos + (Vector3) _deltaPos) / 2.0f;
+
         }
     }
 }

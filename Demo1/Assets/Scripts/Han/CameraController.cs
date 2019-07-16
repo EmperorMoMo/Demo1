@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public PlayerInput pi;
+    //public PlayerInput pi;
+    public IUserInput pi;
     public float horizontalSpeed = 20.0f;//相机水平旋转速度
     public float verticalSpeed = 20.0f;//相机上下旋转速度
     public float cameraDampValue = 0.5f;
@@ -51,6 +52,7 @@ public class CameraController : MonoBehaviour
 
         camera.transform.position =
             Vector3.SmoothDamp(camera.transform.position, transform.position, ref cameraDampVelocity, cameraDampValue);
-        camera.transform.eulerAngles = transform.eulerAngles;
+        //camera.transform.eulerAngles = transform.eulerAngles;//这里会使镜头左右快速移动的时候颤抖，看着很不舒服，改成下面
+        camera.transform.LookAt(cameraHandle.transform.position);//让镜头看向它的父物体cameraHandle
     }
 }

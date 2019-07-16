@@ -375,6 +375,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kazuko_claymore
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 6861e6db149a87045a6b391237fbb7b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 6861e6db149a87045a6b391237fbb7b9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -827,18 +831,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1207b7bd1df534bb11378f6a397b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyUp: w
-  keyDown: s
-  keyLeft: a
-  keyRight: d
-  keyA: left shift
-  keyB: space
-  keyC: k
-  keyD: 
-  keyJRight: right
-  keyJLeft: left
-  keyJUp: up
-  keyJDown: down
   Dup: 0
   Dright: 0
   Dmag: 0
@@ -851,6 +843,18 @@ MonoBehaviour:
   attack: 0
   lastAttack: 0
   inputEnabled: 1
+  keyUp: w
+  keyDown: s
+  keyLeft: a
+  keyRight: d
+  keyA: left shift
+  keyB: space
+  keyC: k
+  keyD: 
+  keyJRight: right
+  keyJLeft: left
+  keyJUp: up
+  keyJDown: down
 --- !u!136 &928179324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1156,7 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8bcd85d565d844ab3481fd507aa863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pi: {fileID: 928179323}
+  pi: {fileID: 0}
   horizontalSpeed: 100
   verticalSpeed: 80
   cameraDampValue: 0.1
@@ -1184,7 +1188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1603250001
 Transform:
   m_ObjectHideFlags: 0
