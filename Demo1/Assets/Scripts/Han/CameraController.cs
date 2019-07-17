@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    //public PlayerInput pi;
+    public KeyboardInput key;
     public IUserInput pi;
     public float horizontalSpeed = 20.0f;//相机水平旋转速度
     public float verticalSpeed = 20.0f;//相机上下旋转速度
@@ -26,6 +26,8 @@ public class CameraController : MonoBehaviour
         tempEulerx = 0;
         model = playerHandle.GetComponent<ActorController>().model;//获取PlayerHandle的脚本中的model
         camera = Camera.main.gameObject;//获取MainCamera物件
+        
+        Cursor.lockState = CursorLockMode.Locked;//隐藏鼠标    注：隐藏鼠标通常都是在camera脚本里面
     }
 
     // Update is called once per frame

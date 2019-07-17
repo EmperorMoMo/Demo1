@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class KeyboardInput : IUserInput
 {
@@ -17,10 +18,17 @@ public class KeyboardInput : IUserInput
     public string keyD;
     public string keyE;
 
+    public MyButton buttonA = new MyButton();
+    public MyButton buttonB = new MyButton();
+    public MyButton buttonC = new MyButton();
+    public MyButton buttonD = new MyButton();
+    //public MyButton buttonE = new MyButton();
+
     public string keyJRight;//控制相机移动
     public string keyJLeft; //控制相机移动
     public string keyJUp;   //控制相机移动
     public string keyJDown; //控制相机移动
+    
 
     /*这些都放到IUserInput里了*/
     //[Header("===== Output signals =====")]
@@ -49,24 +57,36 @@ public class KeyboardInput : IUserInput
     //private float velocityDup;      //过渡值Dup（SmoothDamp方法中的转换速度,SmoothDamp方法会根据最后的时间参数自行计算）
     //private float velocityDright;   //过渡值Dright（SmoothDamp方法中的转换速度,SmoothDamp方法会根据最后的时间参数自行计算）
 
+    [Header("===== Mouse settings =====")]
+    public bool mouseEnable = false;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float mouseSensitivityX = 1.0f;//用于改变鼠标X轴移动速度
+    public float mouseSensitivityY = 1.0f;//用于改变鼠标Y轴移动速度
 
     // Update is called once per frame
     void Update()
     {
-        //defense控制角色举盾
-        defense = Input.GetKey(keyD);
 
-        //Jup控制相机上下移动，值为（1，0，-1）。Jright控制相机左右值也为（1,0,-1)
-        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
-        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
-        //print(Jright);
+        buttonA.Tick(Input.GetKey(keyA));
+        buttonB.Tick(Input.GetKey(keyB));
+        buttonC.Tick(Input.GetKey(keyC));
+        buttonD.Tick(Input.GetKey(keyD));
+        //buttonE.Tick(Input.GetKey(keyE));
 
+        //当mouseEnable为true时，使用鼠标控制相机
+        if (mouseEnable == true)
+        {
+            //也可以用鼠标控制摄像机
+            Jup = Input.GetAxis("Mouse Y") * 2.5f * mouseSensitivityY;//2.5f是预设值，后面的mouseSensitivityY方便玩家修改
+            Jright = Input.GetAxis("Mouse X") * 3f * mouseSensitivityX;//3f是预设值，后面的mouseSensitivityX方便玩家修改
+        }
+        else//当mouseEnable为false则使用键盘控制
+        {
+            //Jup控制相机上下移动，值为（1，0，-1）。Jright控制相机左右值也为（1,0,-1)
+            Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+            Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+        }
+        
         targetDup = (Input.GetKey(keyUp) ? 1.0f : 0) - (Input.GetKey(keyDown) ? 1.0f : 0);
         //三元表达式()?():()     通过Dup值的变化(1,0,-1)来控制前后行走
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
@@ -92,33 +112,40 @@ public class KeyboardInput : IUserInput
         Dmag = Mathf.Sqrt((Dup2 * Dup2) + (Dright2 * Dright2));//勾股定理
         Dvec = Dright2 * transform.right + Dup2 * transform.forward;      //这段代码需要好好理解！！精华所在
 
+        //defense控制角色举盾
+        //defense = Input.GetKey(keyD);
+        defense = buttonD.IsPressing;
+
         //人物跑步
-        run = Input.GetKey(keyA);
+        //run = Input.GetKey(keyA);
+        run = buttonA.IsPressing;
 
         //人物跳跃
-        bool newJump = Input.GetKey(keyB);
-        //jump = tempJump;
-        if (newJump != lastJump && newJump==true )
-        {
-            jump = true;
-        }
-        else
-        {
-            jump = false;
-        }
-        lastJump = newJump;
+        //bool newJump = Input.GetKey(keyB);
+        ////jump = tempJump;
+        //if (newJump != lastJump && newJump==true )
+        //{
+        //    jump = true;
+        //}
+        //else
+        //{
+        //    jump = false;
+        //}
+        //lastJump = newJump;
+        jump = buttonB.OnPressed;
 
         //人物攻击
-        bool newAttack = Input.GetKey(keyC);
-        if (newAttack != lastAttack && newAttack == true)
-        {
-            attack = true;
-        }
-        else
-        {
-            attack = false;
-        }
-        lastAttack = newAttack;
+        //bool newAttack = Input.GetKey(keyC);
+        //if (newAttack != lastAttack && newAttack == true)
+        //{
+        //    attack = true;
+        //}
+        //else
+        //{
+        //    attack = false;
+        //}
+        //lastAttack = newAttack;
+        attack = buttonC.OnPressed;
     }
 
     ////修复斜着跑速度变快的BUG（放到IUserInput里了，与手柄共同的代码都可以放进去）

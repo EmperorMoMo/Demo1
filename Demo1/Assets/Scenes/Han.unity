@@ -795,13 +795,16 @@ MonoBehaviour:
   keyRight: d
   keyA: left shift
   keyB: space
-  keyC: j
-  keyD: k
+  keyC: mouse 0
+  keyD: mouse 1
   keyE: 
   keyJRight: right
   keyJLeft: left
   keyJUp: up
   keyJDown: down
+  mouseEnable: 1
+  mouseSensitivityX: 1
+  mouseSensitivityY: 1
 --- !u!136 &928179324
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1111,6 +1114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8bcd85d565d844ab3481fd507aa863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  key: {fileID: 0}
   pi: {fileID: 928179323}
   horizontalSpeed: 100
   verticalSpeed: 80
