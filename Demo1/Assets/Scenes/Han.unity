@@ -788,6 +788,7 @@ MonoBehaviour:
   lastJump: 0
   attack: 0
   lastAttack: 0
+  hide: 0
   inputEnabled: 1
   keyUp: w
   keyDown: s
@@ -797,7 +798,7 @@ MonoBehaviour:
   keyB: space
   keyC: mouse 0
   keyD: mouse 1
-  keyE: 
+  keyE: left alt
   keyJRight: right
   keyJLeft: left
   keyJUp: up
@@ -1114,7 +1115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c8bcd85d565d844ab3481fd507aa863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: {fileID: 0}
   pi: {fileID: 928179323}
   horizontalSpeed: 100
   verticalSpeed: 80

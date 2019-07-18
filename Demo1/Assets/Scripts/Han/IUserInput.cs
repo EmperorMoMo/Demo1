@@ -24,6 +24,7 @@ public abstract class IUserInput : MonoBehaviour//abstract抽象类无法被实�
     public bool lastJump;
     public bool attack;
     public bool lastAttack;
+    public bool hide;
 
     //3.double trigger  多次触发信号
 

@@ -22,7 +22,7 @@ public class KeyboardInput : IUserInput
     public MyButton buttonB = new MyButton();
     public MyButton buttonC = new MyButton();
     public MyButton buttonD = new MyButton();
-    //public MyButton buttonE = new MyButton();
+    public MyButton buttonE = new MyButton();
 
     public string keyJRight;//控制相机移动
     public string keyJLeft; //控制相机移动
@@ -72,7 +72,7 @@ public class KeyboardInput : IUserInput
         buttonB.Tick(Input.GetKey(keyB));
         buttonC.Tick(Input.GetKey(keyC));
         buttonD.Tick(Input.GetKey(keyD));
-        //buttonE.Tick(Input.GetKey(keyE));
+        buttonE.Tick(Input.GetKey(keyE));
 
         //当mouseEnable为true时，使用鼠标控制相机
         if (mouseEnable == true)
@@ -147,6 +147,10 @@ public class KeyboardInput : IUserInput
         //}
         //lastAttack = newAttack;
         attack = buttonC.OnPressed;
+
+        hide = buttonE.IsPressing;
+        
+        
     }
 
     ////修复斜着跑速度变快的BUG（放到IUserInput里了，与手柄共同的代码都可以放进去）

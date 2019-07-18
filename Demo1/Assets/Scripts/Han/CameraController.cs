@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public KeyboardInput key;
+    //public KeyboardInput key;
     public IUserInput pi;
     public float horizontalSpeed = 20.0f;//相机水平旋转速度
     public float verticalSpeed = 20.0f;//相机上下旋转速度
@@ -26,8 +26,9 @@ public class CameraController : MonoBehaviour
         tempEulerx = 0;
         model = playerHandle.GetComponent<ActorController>().model;//获取PlayerHandle的脚本中的model
         camera = Camera.main.gameObject;//获取MainCamera物件
+
+        //Cursor.lockState = CursorLockMode.Locked;//隐藏鼠标    注：隐藏鼠标通常都是在camera脚本里面
         
-        Cursor.lockState = CursorLockMode.Locked;//隐藏鼠标    注：隐藏鼠标通常都是在camera脚本里面
     }
 
     // Update is called once per frame
@@ -57,4 +58,14 @@ public class CameraController : MonoBehaviour
         //camera.transform.eulerAngles = transform.eulerAngles;//这里会使镜头左右快速移动的时候颤抖，看着很不舒服，改成下面
         camera.transform.LookAt(cameraHandle.transform.position);//让镜头看向它的父物体cameraHandle
     }
+
+    void Update()
+    {
+        Cursor.visible = false;
+        if (pi.hide)
+        {
+            Cursor.visible = true;
+        }
+    }
+
 }
