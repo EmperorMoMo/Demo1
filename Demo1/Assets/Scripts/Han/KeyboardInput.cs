@@ -67,6 +67,7 @@ public class KeyboardInput : IUserInput
     void Update()
     {
 
+        //MyButton写了信号
         buttonA.Tick(Input.GetKey(keyA));
         buttonB.Tick(Input.GetKey(keyB));
         buttonC.Tick(Input.GetKey(keyC));
