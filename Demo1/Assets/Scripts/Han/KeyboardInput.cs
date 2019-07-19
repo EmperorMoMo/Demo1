@@ -73,6 +73,7 @@ public class KeyboardInput : IUserInput
         buttonC.Tick(Input.GetKey(keyC));
         buttonD.Tick(Input.GetKey(keyD));
         buttonE.Tick(Input.GetKey(keyE));
+        print(buttonA.IsExitending && buttonA.OnPressed);
 
         //当mouseEnable为true时，使用鼠标控制相机
         if (mouseEnable == true)

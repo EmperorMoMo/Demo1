@@ -7,12 +7,26 @@ public class MyButton
     public bool IsPressing = false;//正在被按住
     public bool OnPressed = false;//刚刚被按住
     public bool OnReleased = false;//刚刚被释放
+    public bool IsExitending = false;//判断是否延伸的信号
+    
+    //public float extendingDuration = 0.15f;
 
     private bool curState = false;//目前状态
     private bool lastState = false;//前一次的状态
 
+    private MyTimer exitTimer=new MyTimer();//定义退出时间
+
     public void Tick(bool input)
     {
+        //下面的StartTimer方法是对这几句话的一个封装
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    exitTimer.duration = 3.0f;
+        //    exitTimer.Go();
+        //}
+        
+        exitTimer.Tick();
+
         curState = input;//keyboardInput中有按键按下的时候，传入一个input的bool值给curState
 
         IsPressing = curState;//把curState值再传给IsPressing，表示目前为正在被按住      注：长按会一直有信号
@@ -30,9 +44,24 @@ public class MyButton
             else
             {
                 OnReleased = true;
+                StartTimer(exitTimer,0.15f);
             }
         }
         lastState = curState;
+
+        if (exitTimer.state == MyTimer.STATE.RUN)//判断计时器是否在运行，若在运行，则把延伸信号设置为true
+        {
+            IsExitending = true;
+        }
+        else
+        {
+            IsExitending = false;
+        }
     }
 
+    private void StartTimer(MyTimer timer,float duration)
+    {
+        timer.duration = duration;
+        timer.Go();
+    }
 }
