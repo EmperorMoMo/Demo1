@@ -7,14 +7,17 @@ public class MyButton
     public bool IsPressing = false;//正在被按住
     public bool OnPressed = false;//刚刚被按住
     public bool OnReleased = false;//刚刚被释放
-    public bool IsExitending = false;//判断是否延伸的信号
+    public bool IsExtending = false;//判断是否延伸的信号
+    public bool IsDelaying = false;//判断长按信号
     
-    //public float extendingDuration = 0.15f;
+    public float extendingDuration = 0.15f;
+    public float delayingDuration = 1.0f;
 
     private bool curState = false;//目前状态
     private bool lastState = false;//前一次的状态
 
     private MyTimer exitTimer=new MyTimer();//定义退出时间
+    private MyTimer delayTimer = new MyTimer();
 
     public void Tick(bool input)
     {
@@ -26,6 +29,7 @@ public class MyButton
         //}
         
         exitTimer.Tick();
+        delayTimer.Tick();
 
         curState = input;//keyboardInput中有按键按下的时候，传入一个input的bool值给curState
 
@@ -40,23 +44,34 @@ public class MyButton
             if (curState == true)
             {
                 OnPressed = true;
+                StartTimer(delayTimer,delayingDuration);
             }
             else
             {
                 OnReleased = true;
-                StartTimer(exitTimer,0.15f);
+                StartTimer(exitTimer, extendingDuration);
             }
         }
         lastState = curState;
 
         if (exitTimer.state == MyTimer.STATE.RUN)//判断计时器是否在运行，若在运行，则把延伸信号设置为true
         {
-            IsExitending = true;
+            IsExtending = true;
         }
         else
         {
-            IsExitending = false;
+            IsExtending = false;
         }
+
+        if (delayTimer.state == MyTimer.STATE.RUN)//判断计时器是否在运行，若在运行，则把长按信号设置为true
+        {
+            IsDelaying = true;
+        }
+        else
+        {
+            IsDelaying = false;
+        }
+
     }
 
     private void StartTimer(MyTimer timer,float duration)
